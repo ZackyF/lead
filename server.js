@@ -11,14 +11,12 @@ const leadsFile = './leads.json';
 app.use(cors());
 app.use(express.json());
 
-// Menyajikan file statis dari folder 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Endpoint untuk menambahkan lead
 app.post('/leads', (req, res) => {
   const { name, email, phone, loanType } = req.body;
   if (!name || !email || !phone || !loanType) {
-    return res.status(400).json({ error: 'Semua field wajib diisi.' });
+    return res.status(400).json({ error: 'All field must be written.' });
   }
 
   const newLead = { name, email, phone, loanType, createdAt: new Date() };
@@ -28,17 +26,15 @@ app.post('/leads', (req, res) => {
 
   leads.push(newLead);
   fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2));
-  res.status(201).json({ message: 'Lead disimpan!' });
+  res.status(201).json({ message: 'Lead Saved!' });
 });
 
-// Autentikasi dasar untuk endpoint GET /leads
 app.use('/leads', basicAuth({
   users: { 'admin': 'password123' },
   challenge: true,
-  unauthorizedResponse: (req) => 'Akses ditolak. Silakan masukkan kredensial yang valid.'
+  unauthorizedResponse: (req) => 'Access Failed.'
 }));
 
-// Endpoint untuk mengambil semua lead
 app.get('/leads', (req, res) => {
   const leads = fs.existsSync(leadsFile)
     ? JSON.parse(fs.readFileSync(leadsFile))
@@ -47,4 +43,4 @@ app.get('/leads', (req, res) => {
   res.json(leads);
 });
 
-app.listen(PORT, () => console.log(`Server berjalan di http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running http://localhost:${PORT}`));
