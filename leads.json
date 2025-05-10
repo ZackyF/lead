@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Jack",
+    "email": "jack@gmail.com",
+    "phone": "08123456789",
+    "loanType": "KPR",
+    "createdAt": "2025-05-10T05:28:38.402Z"
+  },
+  {
+    "name": "Jack",
+    "email": "jack@gmail.com",
+    "phone": "081234567890",
+    "loanType": "KPR",
+    "createdAt": "2025-05-10T05:32:10.315Z"
+  }
+]
